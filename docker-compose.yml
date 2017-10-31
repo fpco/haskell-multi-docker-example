@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  myapp:
+    build:
+      context: .
+      args:
+        - BINARY_PATH
+    image: fpco/myapp
+    environment:
+      - LOCAL_USER_ID=${LOCAL_USER_ID}
+    ports:
+      - 3000:3000
+
