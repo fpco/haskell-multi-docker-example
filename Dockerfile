@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
-COPY --from=build "/opt/build/${BINARY_PATH}" .
+COPY --from=build /opt/build/.stack-work/install/x86_64-linux/lts-9.9/8.0.2/bin .
 COPY static /opt/app/static
 COPY config /opt/app/config
 
