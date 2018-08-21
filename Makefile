@@ -13,11 +13,15 @@ export BINARY_ROOT = $(shell stack path --local-install-root)
 export BINARY_PATH = $(shell echo ${BINARY_ROOT}/bin/${PROJECT_NAME})
 export BINARY_PATH_RELATIVE = $(shell BINARY_PATH=${BINARY_PATH} python -c "import os; p = os.environ['BINARY_PATH']; print os.path.relpath(p).strip()")
 
-IMAGE_NAME=fpco/myapp
+IMAGE_NAME=gitlab.fpcomplete.com/fpco-mirors/haskell-multi-docker-example
 
 ## Build binary and docker images
 build:
 	@BINARY_PATH=${BINARY_PATH_RELATIVE} docker-compose build
+
+## Build docker image. Used in CI/CD
+build-ci-image:
+	@docker build --build-arg BINARY_PATH=${BINARY_PATH_RELATIVE} -t "${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}" .
 
 ## Run the app
 run:

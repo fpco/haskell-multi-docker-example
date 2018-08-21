@@ -6,7 +6,7 @@ services:
       context: .
       args:
         - BINARY_PATH
-    image: fpco/myapp
+    image: gitlab.fpcomplete.com/fpco-mirors/haskell-multi-docker-example
     environment:
       - LOCAL_USER_ID=${LOCAL_USER_ID}
     ports:

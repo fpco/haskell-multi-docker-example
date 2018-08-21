@@ -1,0 +1,30 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      imagePullSecrets:
+        - name: registry-key
+      containers:
+        - name: myapp
+          image: "${DEPLOYMENT_IMAGE}"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 3000
+          command: ["/opt/app/myapp"]
+          workingDir: /opt/app
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000

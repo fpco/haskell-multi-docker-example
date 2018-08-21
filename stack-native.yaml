@@ -70,7 +70,7 @@ docker:
 image:
     container:
         base: "fpco/myapp-base"
-        name: "fpco/myapp"
+        name: "gitlab.fpcomplete.com/fpco-mirors/haskell-multi-docker-example"
         add:
           static/: /opt/app/static
           config/: /opt/app/config
