@@ -1,0 +1,28 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: gitlab.fpcomplete.com/fpco-mirors/haskell-multi-docker-example
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 3000
+          command: ["myapp"]
+          workingDir: /opt/app
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000

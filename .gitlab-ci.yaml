@@ -1,0 +1,7 @@
+image: registry.gitlab.fpcomplete.com/fpco/default-build-image:1210
+build-and-push:
+  stage: build
+  script:
+    - docker build -t "${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}" .
+    - docker login -u gitlab-ci-token -p "${CI_BUILD_TOKEN}" "${CI_REGISTRY}"
+    - docker push "${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}"
