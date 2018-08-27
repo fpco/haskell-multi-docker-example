@@ -40,6 +40,14 @@ build-stack-native: build-base
 run-stack-native:
 	@docker run -p 3000:3000 -it -w /opt/app ${IMAGE_NAME} myapp
 
+## Deploy helm chart
+deploy:
+	@echo "Deploying build pipeline: ${CI_PIPELINE_ID}"
+	@helm upgrade \
+		--install myapp chart \
+		-f chart/values/${CI_ENVIRONMENT_NAME}.yaml \
+		--set image.tag="${CI_PIPELINE_ID}"
+
 ## Show help screen.
 help:
 	@echo "Please use \`make <target>' where <target> is one of\n\n"
